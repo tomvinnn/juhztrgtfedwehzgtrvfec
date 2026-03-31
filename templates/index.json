@@ -76,8 +76,8 @@
       "settings": {
         "full_width": true,
         "subheading": "",
-        "title": "Before/after",
-        "content": "<p>Showcase your product benefit by using before/after image comparison.</p>",
+        "title": "Avant/Après",
+        "content": "<p>Légèreté et confort absolu en toute situation.</p>",
         "before_image": "shopify://shop_images/telechargement.jpg",
         "after_image": "shopify://shop_images/vinvvv_blanc.png",
         "expand_image": false,
