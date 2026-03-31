@@ -1,1 +1,151 @@
-{"type":"footer","name":"Footer group","sections":{"text-with-icons":{"type":"text-with-icons","blocks":{"free-shipping":{"type":"item","settings":{"icon":"picto-box","mobile_icon_width":24,"icon_width":24,"icon_background_type":"none","title":"Free shipping","content":"<p>Tell your customers about your shipping offer.<\/p>"}},"customer-support":{"type":"item","settings":{"icon":"picto-customer-support","mobile_icon_width":24,"icon_width":24,"icon_background_type":"none","title":"Customer service","content":"<p>Tell your customers how they can reach you.<\/p>"}},"discount":{"type":"item","settings":{"icon":"picto-coupon","mobile_icon_width":24,"icon_width":24,"icon_background_type":"none","title":"Refer a friend","content":"<p>Tell your customers about your promotional offers.<\/p>"}},"payment":{"type":"item","settings":{"icon":"picto-lock","mobile_icon_width":24,"icon_width":24,"icon_background_type":"none","title":"Secure payment","content":"<p>Tel your customers about your payment methods.<\/p>"}}},"block_order":["free-shipping","customer-support","discount","payment"],"settings":{"full_width":true,"heading_tag":"h6","text_alignment":"center","icon_spacing":"small"}},"footer":{"type":"footer","blocks":{"newsletter":{"type":"newsletter","settings":{"image_width":150,"heading_size":"h3","title":"Sign up for new stories and personal offers"}},"links":{"type":"links","settings":{"menu":"footer","show_menu_title":true}},"text":{"type":"text","settings":{"title":"About","content":"<p>Use this text area to tell your customers about your brand and vision. You can change it in the theme editor.<\/p>"}}},"block_order":["newsletter","links","text"],"settings":{"show_social_media":true,"show_payment_icons":true,"show_country_selector":true,"show_country_flag":true,"show_country_name":true,"show_locale_selector":true}}},"order":["text-with-icons","footer"]}
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "type": "footer",
+  "name": "Footer group",
+  "sections": {
+    "text-with-icons": {
+      "type": "text-with-icons",
+      "blocks": {
+        "free-shipping": {
+          "type": "item",
+          "settings": {
+            "icon": "picto-box",
+            "mobile_icon_width": 24,
+            "icon_width": 24,
+            "icon_background_type": "none",
+            "icon_background": "",
+            "icon_color": "",
+            "title": "Free shipping",
+            "content": "<p>Tell your customers about your shipping offer.</p>"
+          }
+        },
+        "customer-support": {
+          "type": "item",
+          "settings": {
+            "icon": "picto-customer-support",
+            "mobile_icon_width": 24,
+            "icon_width": 24,
+            "icon_background_type": "none",
+            "icon_background": "",
+            "icon_color": "",
+            "title": "Customer service",
+            "content": "<p>Tell your customers how they can reach you.</p>"
+          }
+        },
+        "discount": {
+          "type": "item",
+          "settings": {
+            "icon": "picto-coupon",
+            "mobile_icon_width": 24,
+            "icon_width": 24,
+            "icon_background_type": "none",
+            "icon_background": "",
+            "icon_color": "",
+            "title": "Refer a friend",
+            "content": "<p>Tell your customers about your promotional offers.</p>"
+          }
+        },
+        "payment": {
+          "type": "item",
+          "settings": {
+            "icon": "picto-lock",
+            "mobile_icon_width": 24,
+            "icon_width": 24,
+            "icon_background_type": "none",
+            "icon_background": "",
+            "icon_color": "",
+            "title": "Secure payment",
+            "content": "<p>Tel your customers about your payment methods.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "free-shipping",
+        "customer-support",
+        "discount",
+        "payment"
+      ],
+      "settings": {
+        "full_width": true,
+        "stack_on_mobile": false,
+        "title": "",
+        "heading_tag": "h6",
+        "text_alignment": "center",
+        "icon_spacing": "small",
+        "background": "",
+        "background_gradient": "",
+        "text_color": ""
+      }
+    },
+    "custom_liquid_UgKJzV": {
+      "type": "custom-liquid",
+      "name": "Custom Liquid",
+      "settings": {
+        "full_width": true,
+        "remove_vertical_spacing": true,
+        "remove_horizontal_spacing": true,
+        "liquid": "<div style=\"font-family:'Helvetica Neue',Arial,sans-serif;background:#fff;padding:40px 20px;max-width:1100px;margin:0 auto\">\n\n  <!-- Header global score -->\n  <div style=\"display:flex;align-items:center;gap:24px;margin-bottom:32px;flex-wrap:wrap\">\n    <div>\n      <div style=\"display:flex;align-items:center;gap:8px;margin-bottom:4px\">\n        <span style=\"background:#00b67a;color:#fff;font-size:13px;font-weight:700;padding:4px 10px;border-radius:3px\">★ Trustpilot</span>\n        <span style=\"font-size:22px;font-weight:700;color:#1a1a1a\">4,8</span>\n        <span style=\"color:#555;font-size:14px\">sur 5</span>\n      </div>\n      <div style=\"display:flex;gap:3px;margin-bottom:4px\">\n        <span style=\"background:#00b67a;width:28px;height:28px;display:inline-flex;align-items:center;justify-content:center;color:#fff;font-size:16px\">★</span>\n        <span style=\"background:#00b67a;width:28px;height:28px;display:inline-flex;align-items:center;justify-content:center;color:#fff;font-size:16px\">★</span>\n        <span style=\"background:#00b67a;width:28px;height:28px;display:inline-flex;align-items:center;justify-content:center;color:#fff;font-size:16px\">★</span>\n        <span style=\"background:#00b67a;width:28px;height:28px;display:inline-flex;align-items:center;justify-content:center;color:#fff;font-size:16px\">★</span>\n        <span style=\"background:#00b67a;width:28px;height:28px;display:inline-flex;align-items:center;justify-content:center;color:#fff;font-size:16px\">★</span>\n      </div>\n      <div style=\"font-size:13px;color:#555\">Basé sur <strong>247 avis</strong> vérifiés</div>\n    </div>\n    <div style=\"display:flex;flex-direction:column;gap:5px;flex:1;max-width:300px\">\n      <div style=\"display:flex;align-items:center;gap:8px;font-size:13px\">\n        <span style=\"width:40px;color:#555\">5 ★</span>\n        <div style=\"flex:1;height:8px;background:#e8e8e8;border-radius:4px;overflow:hidden\"><div style=\"width:82%;height:100%;background:#00b67a;border-radius:4px\"></div></div>\n        <span style=\"width:30px;color:#555;text-align:right\">82%</span>\n      </div>\n      <div style=\"display:flex;align-items:center;gap:8px;font-size:13px\">\n        <span style=\"width:40px;color:#555\">4 ★</span>\n        <div style=\"flex:1;height:8px;background:#e8e8e8;border-radius:4px;overflow:hidden\"><div style=\"width:10%;height:100%;background:#73cf11;border-radius:4px\"></div></div>\n        <span style=\"width:30px;color:#555;text-align:right\">10%</span>\n      </div>\n      <div style=\"display:flex;align-items:center;gap:8px;font-size:13px\">\n        <span style=\"width:40px;color:#555\">3 ★</span>\n        <div style=\"flex:1;height:8px;background:#e8e8e8;border-radius:4px;overflow:hidden\"><div style=\"width:4%;height:100%;background:#ffce00;border-radius:4px\"></div></div>\n        <span style=\"width:30px;color:#555;text-align:right\">4%</span>\n      </div>\n      <div style=\"display:flex;align-items:center;gap:8px;font-size:13px\">\n        <span style=\"width:40px;color:#555\">2 ★</span>\n        <div style=\"flex:1;height:8px;background:#e8e8e8;border-radius:4px;overflow:hidden\"><div style=\"width:2%;height:100%;background:#ff8622;border-radius:4px\"></div></div>\n        <span style=\"width:30px;color:#555;text-align:right\">2%</span>\n      </div>\n      <div style=\"display:flex;align-items:center;gap:8px;font-size:13px\">\n        <span style=\"width:40px;color:#555\">1 ★</span>\n        <div style=\"flex:1;height:8px;background:#e8e8e8;border-radius:4px;overflow:hidden\"><div style=\"width:2%;height:100%;background:#ff3722;border-radius:4px\"></div></div>\n        <span style=\"width:30px;color:#555;text-align:right\">2%</span>\n      </div>\n    </div>\n  </div>\n\n  <h2 style=\"font-size:18px;font-weight:700;margin-bottom:20px;color:#1a1a1a\">Avis récents</h2>\n\n  <div style=\"display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px\">\n\n    <!-- AVIS 1 -->\n    <div style=\"border:1px solid #e5e5e5;border-radius:8px;padding:18px;background:#fff\">\n      <div style=\"display:flex;align-items:center;gap:10px;margin-bottom:10px\">\n        <div style=\"width:38px;height:38px;border-radius:50%;background:#00b67a;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:16px\">S</div>\n        <div>\n          <div style=\"font-weight:600;font-size:14px\">Sophie Martin</div>\n          <div style=\"font-size:11px;color:#888\">France · Achat vérifié</div>\n        </div>\n      </div>\n      <div style=\"display:flex;gap:2px;margin-bottom:10px\">\n        <span style=\"background:#00b67a;width:22px;height:22px;display:inline-flex;align-items:center;justify-content:center;color:#fff;font-size:13px\">★</span>\n        <span style=\"background:#00b67a;width:22px;height:22px;display:inline-flex;align-items:center;justify-content:center;color:#fff;font-size:13px\">★</span>\n        <span style=\"background:#00b67a;width:22px;height:22px;display:inline-flex;align-items:center;justify-content:center;color:#fff;font-size:13px\">★</span>\n        <span style=\"background:#00b67a;width:22px;height:22px;display:inline-flex;align-items:center;justify-content:center;color:#fff;font-size:13px\">★</span>\n        <span style=\"background:#00b67a;width:22px;height:22px;display:inline-flex;align-items:center;justify-content:center;color:#fff;font-size:13px\">★</span>\n      </div>\n      <p style=\"font-size:13px;color:#333;line-height:1.5;margin-bottom:10px\">Vraiment bluffante cette montre ! Le design ressemble à s'y méprendre à une Apple Watch Ultra. Les fonctions santé sont précises et la batterie tient facilement 2 jours. Je recommande les yeux fermés pour ce prix.</p>\n      <div style=\"font-size:11px;color:#aaa\">Il y a 2 jours</div>\n    </div>\n\n    <!-- AVIS 2 -->\n    <div style=\"border:1px solid #e5e5e5;border-radius:8px;padding:18px;background:#fff\">\n      <div style=\"display:flex;align-items:center;gap:10px;margin-bottom:10px\">\n        <div style=\"width:38px;height:38px;border-radius:50%;background:#4f46e5;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:16px\">K</div>\n        <div>\n          <div style=\"font-weight:600;font-size:14px\">Karim B.</div>\n          <div style=\"font-size:11px;color:#888\">France · Achat vérifié</div>\n        </div>\n      </div>\n      <div style=\"display:flex;gap:2px;margin-bottom:10px\">\n        <span style=\"background:#00b67a;width:22px;height:22px;display:inline-flex;align-items:center;justify-content:center;color:#fff;font-size:13px\">★</span>\n        <span style=\"background:#00b67a;width:22px;height:22px;display:inline-flex;align-items:center;justify-content:center;color:#fff;font-size:13px\">★</span>\n        <span style=\"background:#00b67a;width:22px;height:22px;display:inline-flex;align-items:center;justify-content:center;color:#fff;font-size:13px\">★</span>\n        <span style=\"background:#00b67a;width:22px;height:22px;display:inline-flex;align-items:center;justify-content:center;color:#fff;font-size:13px\">★</span>\n        <span style=\"background:#00b67a;width:22px;height:22px;display:inline-flex;align-items:center;justify-content:center;color:#fff;font-size:13px\">★</span>\n      </div>\n      <p style=\"font-size:13px;color:#333;line-height:1.5;margin-bottom:10px\">Livraison rapide, emballage soigné, montre impeccable. J'utilise le suivi sportif tous les jours pour mes runs et le GPS est nickel. Pour le prix c'est franchement imbattable. Mon entourage me demande souvent si c'est une vraie Ultra 😂</p>\n      <div style=\"font-size:11px;color:#aaa\">Il y a 5 jours</div>\n    </div>\n\n    <!-- AVIS 3 -->\n    <div style=\"border:1px solid #e5e5e5;border-radius:8px;padding:18px;background:#fff\">\n      <div style=\"display:flex;align-items:center;gap:10px;margin-bottom:10px\">\n        <div style=\"width:38px;height:38px;border-radius:50%;background:#ec4899;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:16px\">L</div>\n        <div>\n          <div style=\"font-weight:600;font-size:14px\">Lucie Fontaine</div>\n          <div style=\"font-size:11px;color:#888\">France · Achat vérifié</div>\n        </div>\n      </div>\n      <div style=\"display:flex;gap:2px;margin-bottom:10px\">\n        <span style=\"background:#00b67a;width:22px;height:22px;display:inline-flex;align-items:center;justify-content:center;color:#fff;font-size:13px\">★</span>\n        <span style=\"background:#00b67a;width:22px;height:22px;display:inline-flex;align-items:center;justify-content:center;color:#fff;font-size:13px\">★</span>\n        <span style=\"background:#00b67a;width:22px;height:22px;display:inline-flex;align-items:center;justify-content:center;color:#fff;font-size:13px\">★</span>\n        <span style=\"background:#00b67a;width:22px;height:22px;display:inline-flex;align-items:center;justify-content:center;color:#fff;font-size:13px\">★</span>\n        <span style=\"background:#00b67a;width:22px;height:22px;display:inline-flex;align-items:center;justify-content:center;color:#fff;font-size:13px\">★</span>\n      </div>\n      <p style=\"font-size:13px;color:#333;line-height:1.5;margin-bottom:10px\">Je voulais offrir une belle montre sans me ruiner. Parfait ! L'écran est lumineux, les 3 bracelets interchangeables sont un vrai plus. Le suivi du sommeil et de la fréquence cardiaque fonctionne très bien. Très satisfaite de mon achat !</p>\n      <div style=\"font-size:11px;color:#aaa\">Il y a 1 semaine</div>\n    </div>\n\n    <!-- AVIS 4 -->\n    <div style=\"border:1px solid #e5e5e5;border-radius:8px;padding:18px;background:#fff\">\n      <div style=\"display:flex;align-items:center;gap:10px;margin-bottom:10px\">\n        <div style=\"width:38px;height:38px;border-radius:50%;background:#f59e0b;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:16px\">T</div>\n        <div>\n          <div style=\"font-weight:600;font-size:14px\">Thomas R.</div>\n          <div style=\"font-size:11px;color:#888\">France · Achat vérifié</div>\n        </div>\n      </div>\n      <div style=\"display:flex;gap:2px;margin-bottom:10px\">\n        <span style=\"background:#73cf11;width:22px;height:22px;display:inline-flex;align-items:center;justify-content:center;color:#fff;font-size:13px\">★</span>\n        <span style=\"background:#73cf11;width:22px;height:22px;display:inline-flex;align-items:center;justify-content:center;color:#fff;font-size:13px\">★</span>\n        <span style=\"background:#73cf11;width:22px;height:22px;display:inline-flex;align-items:center;justify-content:center;color:#fff;font-size:13px\">★</span>\n        <span style=\"background:#73cf11;width:22px;height:22px;display:inline-flex;align-items:center;justify-content:center;color:#fff;font-size:13px\">★</span>\n        <span style=\"background:#e5e5e5;width:22px;height:22px;display:inline-flex;align-items:center;justify-content:center;color:#bbb;font-size:13px\">★</span>\n      </div>\n      <p style=\"font-size:13px;color:#333;line-height:1.5;margin-bottom:10px\">Très bonne montre pour le prix. Le rendu visuel est premium, l'écran AMOLED est ultra vif. Je retire une étoile car la configuration de l'appli au départ est un peu longue. Une fois en place, c'est parfait. Livraison en 4 jours, rien à dire.</p>\n      <div style=\"font-size:11px;color:#aaa\">Il y a 10 jours</div>\n    </div>\n\n    <!-- AVIS 5 -->\n    <div style=\"border:1px solid #e5e5e5;border-radius:8px;padding:18px;background:#fff\">\n      <div style=\"display:flex;align-items:center;gap:10px;margin-bottom:10px\">\n        <div style=\"width:38px;height:38px;border-radius:50%;background:#0ea5e9;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:16px\">M</div>\n        <div>\n          <div style=\"font-weight:600;font-size:14px\">Mehdi Ait</div>\n          <div style=\"font-size:11px;color:#888\">France · Achat vérifié</div>\n        </div>\n      </div>\n      <div style=\"display:flex;gap:2px;margin-bottom:10px\">\n        <span style=\"background:#00b67a;width:22px;height:22px;display:inline-flex;align-items:center;justify-content:center;color:#fff;font-size:13px\">★</span>\n        <span style=\"background:#00b67a;width:22px;height:22px;display:inline-flex;align-items:center;justify-content:center;color:#fff;font-size:13px\">★</span>\n        <span style=\"background:#00b67a;width:22px;height:22px;display:inline-flex;align-items:center;justify-content:center;color:#fff;font-size:13px\">★</span>\n        <span style=\"background:#00b67a;width:22px;height:22px;display:inline-flex;align-items:center;justify-content:center;color:#fff;font-size:13px\">★</span>\n        <span style=\"background:#00b67a;width:22px;height:22px;display:inline-flex;align-items:center;justify-content:center;color:#fff;font-size:13px\">★</span>\n      </div>\n      <p style=\"font-size:13px;color:#333;line-height:1.5;margin-bottom:10px\">Je l'ai commandée un vendredi, reçue le mardi. Montre bien emballée, aucun défaut. L'écran est net, les notifications arrivent instantanément depuis le téléphone. Pour 60€ c'est clairement un excellent rapport qualité/prix, je recommande à 100%.</p>\n      <div style=\"font-size:11px;color:#aaa\">Il y a 2 semaines</div>\n    </div>\n\n    <!-- AVIS 6 -->\n    <div style=\"border:1px solid #e5e5e5;border-radius:8px;padding:18px;background:#fff\">\n      <div style=\"display:flex;align-items:center;gap:10px;margin-bottom:10px\">\n        <div style=\"width:38px;height:38px;border-radius:50%;background:#8b5cf6;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:16px\">N</div>\n        <div>\n          <div style=\"font-weight:600;font-size:14px\">Nadia Chevalier</div>\n          <div style=\"font-size:11px;color:#888\">France · Achat vérifié</div>\n        </div>\n      </div>\n      <div style=\"display:flex;gap:2px;margin-bottom:10px\">\n        <span style=\"background:#73cf11;width:22px;height:22px;display:inline-flex;align-items:center;justify-content:center;color:#fff;font-size:13px\">★</span>\n        <span style=\"background:#73cf11;width:22px;height:22px;display:inline-flex;align-items:center;justify-content:center;color:#fff;font-size:13px\">★</span>\n        <span style=\"background:#73cf11;width:22px;height:22px;display:inline-flex;align-items:center;justify-content:center;color:#fff;font-size:13px\">★</span>\n        <span style=\"background:#73cf11;width:22px;height:22px;display:inline-flex;align-items:center;justify-content:center;color:#fff;font-size:13px\">★</span>\n        <span style=\"background:#e5e5e5;width:22px;height:22px;display:inline-flex;align-items:center;justify-content:center;color:#bbb;font-size:13px\">★</span>\n      </div>\n      <p style=\"font-size:13px;color:#333;line-height:1.5;margin-bottom:10px\">Achetée pour offrir à mon mari sportif. Il adore ! La résistance à l'eau est testée et validée (piscine ✓). Le seul bémol : l'application est uniquement en anglais. Sinon la montre est superbe, bien finie, rien à redire sur la qualité pour ce tarif.</p>\n      <div style=\"font-size:11px;color:#aaa\">Il y a 3 semaines</div>\n    </div>\n\n    <!-- AVIS 7 -->\n    <div style=\"border:1px solid #e5e5e5;border-radius:8px;padding:18px;background:#fff\">\n      <div style=\"display:flex;align-items:center;gap:10px;margin-bottom:10px\">\n        <div style=\"width:38px;height:38px;border-radius:50%;background:#10b981;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:16px\">J</div>\n        <div>\n          <div style=\"font-weight:600;font-size:14px\">Jordan V.</div>\n          <div style=\"font-size:11px;color:#888\">France · Achat vérifié</div>\n        </div>\n      </div>\n      <div style=\"display:flex;gap:2px;margin-bottom:10px\">\n        <span style=\"background:#00b67a;width:22px;height:22px;display:inline-flex;align-items:center;justify-content:center;color:#fff;font-size:13px\">★</span>\n        <span style=\"background:#00b67a;width:22px;height:22px;display:inline-flex;align-items:center;justify-content:center;color:#fff;font-size:13px\">★</span>\n        <span style=\"background:#00b67a;width:22px;height:22px;display:inline-flex;align-items:center;justify-content:center;color:#fff;font-size:13px\">★</span>\n        <span style=\"background:#00b67a;width:22px;height:22px;display:inline-flex;align-items:center;justify-content:center;color:#fff;font-size:13px\">★</span>\n        <span style=\"background:#00b67a;width:22px;height:22px;display:inline-flex;align-items:center;justify-content:center;color:#fff;font-size:13px\">★</span>\n      </div>\n      <p style=\"font-size:13px;color:#333;line-height:1.5;margin-bottom:10px\">3 bracelets inclus, c'est top pour changer de style selon l'occasion. La montre tient la charge 48h facilement. Suivi des calories, steps, sommeil, tout est là. Je l'utilise depuis 1 mois sans aucun problème. Franchement pour 60€ chapeau !</p>\n      <div style=\"font-size:11px;color:#aaa\">Il y a 1 mois</div>\n    </div>\n\n    <!-- AVIS 8 -->\n    <div style=\"border:1px solid #e5e5e5;border-radius:8px;padding:18px;background:#fff\">\n      <div style=\"display:flex;align-items:center;gap:10px;margin-bottom:10px\">\n        <div style=\"width:38px;height:38px;border-radius:50%;background:#ef4444;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:16px\">A</div>\n        <div>\n          <div style=\"font-weight:600;font-size:14px\">Amina Khelil</div>\n          <div style=\"font-size:11px;color:#888\">France · Achat vérifié</div>\n        </div>\n      </div>\n      <div style=\"display:flex;gap:2px;margin-bottom:10px\">\n        <span style=\"background:#00b67a;width:22px;height:22px;display:inline-flex;align-items:center;justify-content:center;color:#fff;font-size:13px\">★</span>\n        <span style=\"background:#00b67a;width:22px;height:22px;display:inline-flex;align-items:center;justify-content:center;color:#fff;font-size:13px\">★</span>\n        <span style=\"background:#00b67a;width:22px;height:22px;display:inline-flex;align-items:center;justify-content:center;color:#fff;font-size:13px\">★</span>\n        <span style=\"background:#00b67a;width:22px;height:22px;display:inline-flex;align-items:center;justify-content:center;color:#fff;font-size:13px\">★</span>\n        <span style=\"background:#00b67a;width:22px;height:22px;display:inline-flex;align-items:center;justify-content:center;color:#fff;font-size:13px\">★</span>\n      </div>\n      <p style=\"font-size:13px;color:#333;line-height:1.5;margin-bottom:10px\">Un vrai coup de cœur ! Je cherchais quelque chose d'élégant et sportif à la fois. Cette montre coche toutes les cases. Service client réactif quand j'ai eu une question sur la configuration. Livraison parfaite, emballage cadeau au top. 5 étoiles mérités !</p>\n      <div style=\"font-size:11px;color:#aaa\">Il y a 1 mois</div>\n    </div>\n\n  </div>\n\n  <!-- Footer -->\n  <div style=\"display:flex;align-items:center;justify-content:center;gap:8px;margin-top:28px;padding-top:20px;border-top:1px solid #e5e5e5\">\n    <span style=\"font-size:13px;color:#888\">Powered by</span>\n    <span style=\"background:#00b67a;color:#fff;font-size:13px;font-weight:700;padding:3px 8px;border-radius:3px\">★ Trustpilot</span>\n  </div>\n</div>",
+        "background": "",
+        "background_gradient": "",
+        "text_color": ""
+      }
+    },
+    "footer": {
+      "type": "footer",
+      "blocks": {
+        "newsletter": {
+          "type": "newsletter",
+          "settings": {
+            "image_width": 150,
+            "heading_size": "h3",
+            "title": "Sign up for new stories and personal offers",
+            "content": ""
+          }
+        },
+        "links": {
+          "type": "links",
+          "settings": {
+            "menu": "footer",
+            "show_menu_title": true,
+            "menu_title": ""
+          }
+        },
+        "text": {
+          "type": "text",
+          "settings": {
+            "title": "About",
+            "content": "<p>Use this text area to tell your customers about your brand and vision. You can change it in the theme editor.</p>",
+            "enable_follow_on_shop": true
+          }
+        }
+      },
+      "block_order": [
+        "newsletter",
+        "links",
+        "text"
+      ],
+      "settings": {
+        "show_social_media": true,
+        "show_payment_icons": true,
+        "show_policy_links": false,
+        "show_country_selector": true,
+        "show_country_flag": true,
+        "show_country_name": true,
+        "show_locale_selector": true
+      }
+    }
+  },
+  "order": [
+    "text-with-icons",
+    "custom_liquid_UgKJzV",
+    "footer"
+  ]
+}
