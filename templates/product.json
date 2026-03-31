@@ -114,6 +114,7 @@
     },
     "related-products": {
       "type": "related-products",
+      "disabled": true,
       "settings": {
         "recommendations_count": 6,
         "products": [],
@@ -133,10 +134,53 @@
         "product_card_background": "",
         "product_card_text_color": ""
       }
+    },
+    "177497613448dc151c": {
+      "type": "_blocks",
+      "blocks": {
+        "ai_gen_block_f938e34_Haga7c": {
+          "type": "ai_gen_block_f938e34",
+          "settings": {
+            "desktop_width_percent": 100,
+            "columns_desktop": "4",
+            "columns_mobile": "2",
+            "layout": "column",
+            "gap": 15,
+            "padding": 20,
+            "badge_padding": 20,
+            "background_gradient": "linear-gradient(180deg, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0) 100%)",
+            "border_radius": 16,
+            "badge_border_radius": 16,
+            "icon_size": 35,
+            "icon_text_gap": 10,
+            "title_size": 15,
+            "title_weight": "700",
+            "description_size": 12,
+            "show_secure_payment": true,
+            "secure_payment_title": "Paiement sécurisé",
+            "secure_payment_description": "SSL & cryptage",
+            "show_fast_delivery": true,
+            "fast_delivery_title": "Livraison 5 jours",
+            "fast_delivery_description": "Partout en France",
+            "show_guarantee": true,
+            "guarantee_title": "Garantie 60 jours",
+            "guarantee_description": "Satisfait ou remboursé",
+            "show_support": true,
+            "support_title": "Support 7j/7",
+            "support_description": "Réponse rapide"
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "ai_gen_block_f938e34_Haga7c"
+      ],
+      "settings": {}
     }
   },
   "order": [
     "main",
-    "related-products"
+    "related-products",
+    "177497613448dc151c"
   ]
 }
