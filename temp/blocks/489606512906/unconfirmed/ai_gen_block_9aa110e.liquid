@@ -1,6 +1,820 @@
+{% doc %}
+  @prompt
+    image prod avec point qui redirige sur une fleche { avantage modifiable }
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-product-hotspot-container-{{ ai_gen_id }} {
+    position: relative;
+    width: {{ block.settings.desktop_width_percent }}%;
+    max-width: 100%;
+    display: block;
+  }
+
+  .ai-product-hotspot-wrapper-{{ ai_gen_id }} {
+    position: relative;
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  .ai-product-hotspot-image-{{ ai_gen_id }} {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: {{ block.settings.image_border_radius }}px;
+  }
+
+  .ai-product-hotspot-placeholder-{{ ai_gen_id }} {
+    background-color: #f4f4f4;
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    border-radius: {{ block.settings.image_border_radius }}px;
+  }
+
+  .ai-product-hotspot-placeholder-{{ ai_gen_id }} svg {
+    width: 100%;
+    height: 100%;
+    max-width: 500px;
+    max-height: 500px;
+  }
+
+  .ai-product-hotspot-empty-state-{{ ai_gen_id }} {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 12px 20px;
+    font-size: 14px;
+    color: #666;
+    text-align: center;
+    pointer-events: none;
+  }
+
+  .ai-product-hotspot-point-{{ ai_gen_id }} {
+    position: absolute;
+    top: var(--ai-hotspot-y-{{ ai_gen_id }});
+    left: var(--ai-hotspot-x-{{ ai_gen_id }});
+    transform: translate(-50%, -50%);
+    z-index: 2;
+  }
+
+  .ai-product-hotspot-button-{{ ai_gen_id }} {
+    width: {{ block.settings.hotspot_size }}px;
+    height: {{ block.settings.hotspot_size }}px;
+    border-radius: 50%;
+    background-color: {{ block.settings.hotspot_color }};
+    border: {{ block.settings.hotspot_border_width }}px solid {{ block.settings.hotspot_border_color }};
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    position: relative;
+  }
+
+  .ai-product-hotspot-button-{{ ai_gen_id }}:hover {
+    transform: scale(1.1);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+  }
+
+  .ai-product-hotspot-button-{{ ai_gen_id }}::before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background-color: {{ block.settings.hotspot_color }};
+    opacity: 0.3;
+    animation: ai-product-hotspot-pulse-{{ ai_gen_id }} 2s infinite;
+  }
+
+  @keyframes ai-product-hotspot-pulse-{{ ai_gen_id }} {
+    0% {
+      transform: scale(1);
+      opacity: 0.3;
+    }
+    50% {
+      transform: scale(1.5);
+      opacity: 0;
+    }
+    100% {
+      transform: scale(1);
+      opacity: 0;
+    }
+  }
+
+  .ai-product-hotspot-icon-{{ ai_gen_id }} {
+    width: calc({{ block.settings.hotspot_size }}px * 0.5);
+    height: calc({{ block.settings.hotspot_size }}px * 0.5);
+    color: {{ block.settings.hotspot_icon_color }};
+    position: relative;
+    z-index: 1;
+  }
+
+  .ai-product-hotspot-popup-{{ ai_gen_id }} {
+    position: absolute;
+    width: {{ block.settings.popup_width }}px;
+    background-color: {{ block.settings.popup_bg_color }};
+    border-radius: {{ block.settings.popup_border_radius }}px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+    padding: 20px;
+    color: {{ block.settings.popup_text_color }};
+    z-index: 3;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;
+    pointer-events: none;
+  }
+
+  .ai-product-hotspot-popup-{{ ai_gen_id }}.active {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+  }
+
+  .ai-product-hotspot-popup-{{ ai_gen_id }}--top {
+    bottom: calc(100% + 15px);
+    left: 50%;
+    transform: translateX(-50%) translateY(10px);
+  }
+
+  .ai-product-hotspot-popup-{{ ai_gen_id }}--top.active {
+    transform: translateX(-50%) translateY(0);
+  }
+
+  .ai-product-hotspot-popup-{{ ai_gen_id }}--bottom {
+    top: calc(100% + 15px);
+    left: 50%;
+    transform: translateX(-50%) translateY(-10px);
+  }
+
+  .ai-product-hotspot-popup-{{ ai_gen_id }}--bottom.active {
+    transform: translateX(-50%) translateY(0);
+  }
+
+  .ai-product-hotspot-popup-{{ ai_gen_id }}--left {
+    right: calc(100% + 15px);
+    top: 50%;
+    transform: translateY(-50%) translateX(10px);
+  }
+
+  .ai-product-hotspot-popup-{{ ai_gen_id }}--left.active {
+    transform: translateY(-50%) translateX(0);
+  }
+
+  .ai-product-hotspot-popup-{{ ai_gen_id }}--right {
+    left: calc(100% + 15px);
+    top: 50%;
+    transform: translateY(-50%) translateX(-10px);
+  }
+
+  .ai-product-hotspot-popup-{{ ai_gen_id }}--right.active {
+    transform: translateY(-50%) translateX(0);
+  }
+
+  .ai-product-hotspot-popup-content-{{ ai_gen_id }} {
+    position: relative;
+  }
+
+  .ai-product-hotspot-popup-close-{{ ai_gen_id }} {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    background: {{ block.settings.popup_bg_color }};
+    border: none;
+    cursor: pointer;
+    padding: 4px;
+    color: {{ block.settings.popup_text_color }};
+    opacity: 0.7;
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  }
+
+  .ai-product-hotspot-popup-close-{{ ai_gen_id }}:hover {
+    opacity: 1;
+  }
+
+  .ai-product-hotspot-advantage-{{ ai_gen_id }} {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .ai-product-hotspot-advantage-icon-{{ ai_gen_id }} {
+    flex-shrink: 0;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: {{ block.settings.advantage_icon_bg }};
+    border-radius: 50%;
+    color: {{ block.settings.advantage_icon_color }};
+  }
+
+  .ai-product-hotspot-advantage-icon-{{ ai_gen_id }} svg {
+    width: 18px;
+    height: 18px;
+  }
+
+  .ai-product-hotspot-advantage-content-{{ ai_gen_id }} {
+    flex-grow: 1;
+  }
+
+  .ai-product-hotspot-advantage-title-{{ ai_gen_id }} {
+    font-size: 16px;
+    font-weight: 600;
+    margin: 0 0 6px;
+    color: {{ block.settings.popup_text_color }};
+  }
+
+  .ai-product-hotspot-advantage-text-{{ ai_gen_id }} {
+    font-size: 14px;
+    line-height: 1.5;
+    margin: 0;
+    color: {{ block.settings.popup_text_color }};
+    opacity: 0.85;
+  }
+
+  .ai-product-hotspot-empty-advantage-{{ ai_gen_id }} {
+    font-size: 14px;
+    color: #999;
+    text-align: center;
+    padding: 10px;
+    font-style: italic;
+  }
+
+  @media screen and (max-width: 749px) {
+    .ai-product-hotspot-button-{{ ai_gen_id }} {
+      width: calc({{ block.settings.hotspot_size }}px * 0.8);
+      height: calc({{ block.settings.hotspot_size }}px * 0.8);
+    }
+
+    .ai-product-hotspot-icon-{{ ai_gen_id }} {
+      width: calc({{ block.settings.hotspot_size }}px * 0.4);
+      height: calc({{ block.settings.hotspot_size }}px * 0.4);
+    }
+
+    .ai-product-hotspot-popup-{{ ai_gen_id }} {
+      width: calc({{ block.settings.popup_width }}px * 0.85);
+    }
+  }
+{% endstyle %}
+
+<product-hotspot-{{ ai_gen_id }}
+  class="ai-product-hotspot-container-{{ ai_gen_id }}"
+  {{ block.shopify_attributes }}
+>
+  <div class="ai-product-hotspot-wrapper-{{ ai_gen_id }}">
+    {% if block.settings.image %}
+      <img
+        src="{{ block.settings.image | image_url: width: 2000 }}"
+        alt="{{ block.settings.image.alt | escape }}"
+        loading="lazy"
+        width="{{ block.settings.image.width }}"
+        height="{{ block.settings.image.height }}"
+        class="ai-product-hotspot-image-{{ ai_gen_id }}"
+      >
+    {% else %}
+      <div class="ai-product-hotspot-placeholder-{{ ai_gen_id }}">
+        {{ 'product-1' | placeholder_svg_tag }}
+        <div class="ai-product-hotspot-empty-state-{{ ai_gen_id }}">
+          Ajoutez une image de produit
+        </div>
+      </div>
+    {% endif %}
+
+    {% for i in (1..5) %}
+      {% liquid
+        assign hotspot_enabled_key = 'hotspot_' | append: i | append: '_enabled'
+        assign hotspot_x_key = 'hotspot_' | append: i | append: '_x'
+        assign hotspot_y_key = 'hotspot_' | append: i | append: '_y'
+        assign advantage_title_key = 'hotspot_' | append: i | append: '_title'
+        assign advantage_text_key = 'hotspot_' | append: i | append: '_text'
+
+        assign hotspot_enabled = block.settings[hotspot_enabled_key]
+        assign hotspot_x = block.settings[hotspot_x_key]
+        assign hotspot_y = block.settings[hotspot_y_key]
+        assign advantage_title = block.settings[advantage_title_key]
+        assign advantage_text = block.settings[advantage_text_key]
+      %}
+
+      {% if hotspot_enabled %}
+        <div
+          class="ai-product-hotspot-point-{{ ai_gen_id }}"
+          style="
+            --ai-hotspot-x-{{ ai_gen_id }}: {{ hotspot_x }}%;
+            --ai-hotspot-y-{{ ai_gen_id }}: {{ hotspot_y }}%;
+          "
+          data-hotspot-id="{{ i }}"
+        >
+          <button
+            class="ai-product-hotspot-button-{{ ai_gen_id }}"
+            aria-label="Voir l'avantage {{ i }}"
+            aria-expanded="false"
+          >
+            <svg
+              class="ai-product-hotspot-icon-{{ ai_gen_id }}"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <line x1="12" y1="5" x2="12" y2="19"></line>
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+            </svg>
+          </button>
+
+          <div
+            class="ai-product-hotspot-popup-{{ ai_gen_id }} ai-product-hotspot-popup-{{ ai_gen_id }}--{{ block.settings.popup_position }}"
+          >
+            <div class="ai-product-hotspot-popup-content-{{ ai_gen_id }}">
+              {% if advantage_title != blank or advantage_text != blank %}
+                <div class="ai-product-hotspot-advantage-{{ ai_gen_id }}">
+                  <div class="ai-product-hotspot-advantage-icon-{{ ai_gen_id }}">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    >
+                      <polyline points="20 6 9 17 4 12"></polyline>
+                    </svg>
+                  </div>
+                  <div class="ai-product-hotspot-advantage-content-{{ ai_gen_id }}">
+                    {% if advantage_title != blank %}
+                      <h3 class="ai-product-hotspot-advantage-title-{{ ai_gen_id }}">{{ advantage_title }}</h3>
+                    {% endif %}
+                    {% if advantage_text != blank %}
+                      <p class="ai-product-hotspot-advantage-text-{{ ai_gen_id }}">{{ advantage_text }}</p>
+                    {% endif %}
+                  </div>
+                </div>
+              {% else %}
+                <div class="ai-product-hotspot-empty-advantage-{{ ai_gen_id }}">
+                  Ajoutez un titre et une description
+                </div>
+              {% endif %}
+              <button
+                class="ai-product-hotspot-popup-close-{{ ai_gen_id }}"
+                aria-label="Fermer"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <line x1="18" y1="6" x2="6" y2="18"></line>
+                  <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
+      {% endif %}
+    {% endfor %}
+  </div>
+</product-hotspot-{{ ai_gen_id }}>
+
+<script>
+  (function() {
+    class ProductHotspot{{ ai_gen_id }} extends HTMLElement {
+      constructor() {
+        super();
+      }
+
+      connectedCallback() {
+        this.hotspots = this.querySelectorAll('.ai-product-hotspot-point-{{ ai_gen_id }}');
+        this.setupEventListeners();
+      }
+
+      setupEventListeners() {
+        this.hotspots.forEach((hotspot) => {
+          const button = hotspot.querySelector('.ai-product-hotspot-button-{{ ai_gen_id }}');
+          const popup = hotspot.querySelector('.ai-product-hotspot-popup-{{ ai_gen_id }}');
+          const closeButton = popup.querySelector('.ai-product-hotspot-popup-close-{{ ai_gen_id }}');
+
+          button.addEventListener('click', () => {
+            this.querySelectorAll('.ai-product-hotspot-popup-{{ ai_gen_id }}').forEach((p) => {
+              if (p !== popup) {
+                p.classList.remove('active');
+                p.closest('.ai-product-hotspot-point-{{ ai_gen_id }}').querySelector('.ai-product-hotspot-button-{{ ai_gen_id }}').setAttribute('aria-expanded', 'false');
+              }
+            });
+
+            const isActive = popup.classList.contains('active');
+            popup.classList.toggle('active');
+            button.setAttribute('aria-expanded', !isActive);
+          });
+
+          closeButton.addEventListener('click', () => {
+            popup.classList.remove('active');
+            button.setAttribute('aria-expanded', 'false');
+          });
+        });
+
+        document.addEventListener('click', (event) => {
+          if (
+            !event.target.closest('.ai-product-hotspot-popup-{{ ai_gen_id }}') &&
+            !event.target.closest('.ai-product-hotspot-button-{{ ai_gen_id }}')
+          ) {
+            this.querySelectorAll('.ai-product-hotspot-popup-{{ ai_gen_id }}').forEach((popup) => {
+              popup.classList.remove('active');
+              popup.closest('.ai-product-hotspot-point-{{ ai_gen_id }}').querySelector('.ai-product-hotspot-button-{{ ai_gen_id }}').setAttribute('aria-expanded', 'false');
+            });
+          }
+        });
+      }
+    }
+
+    customElements.define('product-hotspot-{{ ai_gen_id }}', ProductHotspot{{ ai_gen_id }});
+  })();
+</script>
+
 {% schema %}
- {
-   "name": "AI_Block",
-   "tag": "shopify-ai-generated-block"
- }
+{
+  "name": "Points produit",
+  "tag": null,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image du produit"
+    },
+    {
+      "type": "range",
+      "id": "desktop_width_percent",
+      "label": "Largeur sur ordinateur",
+      "min": 50,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "default": 100
+    },
+    {
+      "type": "range",
+      "id": "image_border_radius",
+      "min": 0,
+      "max": 40,
+      "step": 4,
+      "unit": "px",
+      "label": "Arrondi de l'image",
+      "default": 24
+    },
+    {
+      "type": "header",
+      "content": "Style des points"
+    },
+    {
+      "type": "range",
+      "id": "hotspot_size",
+      "min": 24,
+      "max": 60,
+      "step": 4,
+      "unit": "px",
+      "label": "Taille des points",
+      "default": 40
+    },
+    {
+      "type": "color",
+      "id": "hotspot_color",
+      "label": "Couleur de fond",
+      "default": "#1a1a1a"
+    },
+    {
+      "type": "color",
+      "id": "hotspot_icon_color",
+      "label": "Couleur de l'icône",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "hotspot_border_width",
+      "min": 0,
+      "max": 4,
+      "step": 1,
+      "unit": "px",
+      "label": "Épaisseur de la bordure",
+      "default": 0
+    },
+    {
+      "type": "color",
+      "id": "hotspot_border_color",
+      "label": "Couleur de la bordure",
+      "default": "#ffffff"
+    },
+    {
+      "type": "header",
+      "content": "Style de la popup"
+    },
+    {
+      "type": "select",
+      "id": "popup_position",
+      "label": "Position de la popup",
+      "options": [
+        {
+          "value": "top",
+          "label": "Haut"
+        },
+        {
+          "value": "bottom",
+          "label": "Bas"
+        },
+        {
+          "value": "left",
+          "label": "Gauche"
+        },
+        {
+          "value": "right",
+          "label": "Droite"
+        }
+      ],
+      "default": "top"
+    },
+    {
+      "type": "range",
+      "id": "popup_width",
+      "min": 200,
+      "max": 400,
+      "step": 20,
+      "unit": "px",
+      "label": "Largeur de la popup",
+      "default": 280
+    },
+    {
+      "type": "range",
+      "id": "popup_border_radius",
+      "min": 0,
+      "max": 32,
+      "step": 4,
+      "unit": "px",
+      "label": "Arrondi de la popup",
+      "default": 16
+    },
+    {
+      "type": "color",
+      "id": "popup_bg_color",
+      "label": "Couleur de fond",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "popup_text_color",
+      "label": "Couleur du texte",
+      "default": "#1a1a1a"
+    },
+    {
+      "type": "color",
+      "id": "advantage_icon_bg",
+      "label": "Fond de l'icône avantage",
+      "default": "#f0c417"
+    },
+    {
+      "type": "color",
+      "id": "advantage_icon_color",
+      "label": "Couleur de l'icône avantage",
+      "default": "#1a1a1a"
+    },
+    {
+      "type": "header",
+      "content": "Point 1"
+    },
+    {
+      "type": "checkbox",
+      "id": "hotspot_1_enabled",
+      "label": "Activer le point 1",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "hotspot_1_x",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "%",
+      "label": "Position horizontale",
+      "default": 30
+    },
+    {
+      "type": "range",
+      "id": "hotspot_1_y",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "%",
+      "label": "Position verticale",
+      "default": 25
+    },
+    {
+      "type": "text",
+      "id": "hotspot_1_title",
+      "label": "Titre de l'avantage",
+      "default": "Qualité premium"
+    },
+    {
+      "type": "textarea",
+      "id": "hotspot_1_text",
+      "label": "Description de l'avantage",
+      "default": "Matériaux de haute qualité pour une durabilité exceptionnelle"
+    },
+    {
+      "type": "header",
+      "content": "Point 2"
+    },
+    {
+      "type": "checkbox",
+      "id": "hotspot_2_enabled",
+      "label": "Activer le point 2",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "hotspot_2_x",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "%",
+      "label": "Position horizontale",
+      "default": 70
+    },
+    {
+      "type": "range",
+      "id": "hotspot_2_y",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "%",
+      "label": "Position verticale",
+      "default": 40
+    },
+    {
+      "type": "text",
+      "id": "hotspot_2_title",
+      "label": "Titre de l'avantage",
+      "default": "Design innovant"
+    },
+    {
+      "type": "textarea",
+      "id": "hotspot_2_text",
+      "label": "Description de l'avantage",
+      "default": "Un design moderne et élégant qui se démarque"
+    },
+    {
+      "type": "header",
+      "content": "Point 3"
+    },
+    {
+      "type": "checkbox",
+      "id": "hotspot_3_enabled",
+      "label": "Activer le point 3",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "hotspot_3_x",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "%",
+      "label": "Position horizontale",
+      "default": 50
+    },
+    {
+      "type": "range",
+      "id": "hotspot_3_y",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "%",
+      "label": "Position verticale",
+      "default": 65
+    },
+    {
+      "type": "text",
+      "id": "hotspot_3_title",
+      "label": "Titre de l'avantage",
+      "default": "Confort optimal"
+    },
+    {
+      "type": "textarea",
+      "id": "hotspot_3_text",
+      "label": "Description de l'avantage",
+      "default": "Ergonomie pensée pour votre confort au quotidien"
+    },
+    {
+      "type": "header",
+      "content": "Point 4"
+    },
+    {
+      "type": "checkbox",
+      "id": "hotspot_4_enabled",
+      "label": "Activer le point 4",
+      "default": false
+    },
+    {
+      "type": "range",
+      "id": "hotspot_4_x",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "%",
+      "label": "Position horizontale",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "hotspot_4_y",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "%",
+      "label": "Position verticale",
+      "default": 80
+    },
+    {
+      "type": "text",
+      "id": "hotspot_4_title",
+      "label": "Titre de l'avantage"
+    },
+    {
+      "type": "textarea",
+      "id": "hotspot_4_text",
+      "label": "Description de l'avantage"
+    },
+    {
+      "type": "header",
+      "content": "Point 5"
+    },
+    {
+      "type": "checkbox",
+      "id": "hotspot_5_enabled",
+      "label": "Activer le point 5",
+      "default": false
+    },
+    {
+      "type": "range",
+      "id": "hotspot_5_x",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "%",
+      "label": "Position horizontale",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "hotspot_5_y",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "%",
+      "label": "Position verticale",
+      "default": 80
+    },
+    {
+      "type": "text",
+      "id": "hotspot_5_title",
+      "label": "Titre de l'avantage"
+    },
+    {
+      "type": "textarea",
+      "id": "hotspot_5_text",
+      "label": "Description de l'avantage"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Points produit"
+    }
+  ]
+}
 {% endschema %}
