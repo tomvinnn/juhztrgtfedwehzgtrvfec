@@ -94,6 +94,7 @@
         "quantity_selector",
         "buy_buttons"
       ],
+      "disabled": true,
       "settings": {
         "full_width": true,
         "show_fixed_add_to_cart": true,
@@ -140,6 +141,7 @@
       "blocks": {
         "ai_gen_block_f938e34_Haga7c": {
           "type": "ai_gen_block_f938e34",
+          "disabled": true,
           "settings": {
             "desktop_width_percent": 100,
             "columns_desktop": "4",
