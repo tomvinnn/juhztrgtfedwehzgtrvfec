@@ -13,6 +13,7 @@
   "sections": {
     "custom_liquid_UgKJzV": {
       "type": "custom-liquid",
+      "disabled": true,
       "name": "Custom Liquid",
       "settings": {
         "full_width": true,
@@ -58,6 +59,7 @@
         "links",
         "text"
       ],
+      "disabled": true,
       "settings": {
         "show_social_media": true,
         "show_payment_icons": true,

@@ -14,6 +14,7 @@
       "blocks": {
         "slide-1": {
           "type": "image",
+          "disabled": true,
           "settings": {
             "image": "shopify://shop_images/vinvvv_blanc.png",
             "content_max_width": 780,
@@ -52,6 +53,7 @@
     },
     "before_after_image_jrcHfz": {
       "type": "before-after-image",
+      "disabled": true,
       "name": "Before/after image",
       "settings": {
         "full_width": true,
@@ -80,6 +82,7 @@
       "blocks": {
         "ai_gen_block_9aa110e_xNF3wV": {
           "type": "ai_gen_block_9aa110e",
+          "disabled": true,
           "settings": {
             "desktop_width_percent": 100,
             "image_border_radius": 24,
@@ -350,6 +353,7 @@
       "block_order": [
         "1664424181b38582d5-0"
       ],
+      "disabled": true,
       "settings": {
         "full_width": true,
         "stack_mobile": true,
@@ -394,6 +398,7 @@
         "1664424230c4756b0e-1",
         "1664424230c4756b0e-2"
       ],
+      "disabled": true,
       "settings": {
         "full_width": true,
         "allow_transparent_header": false,
@@ -500,6 +505,7 @@
         "item-3",
         "29246d34-c6e0-4373-84f6-b15e57736a00"
       ],
+      "disabled": true,
       "settings": {
         "full_width": true,
         "reduce_width": false,
@@ -511,6 +517,7 @@
     },
     "before-after-image": {
       "type": "before-after-image",
+      "disabled": true,
       "settings": {
         "full_width": true,
         "subheading": "",
@@ -559,6 +566,7 @@
         "16644243327ba53d2a-0",
         "16644243327ba53d2a-1"
       ],
+      "disabled": true,
       "settings": {
         "full_width": true,
         "content_size": "medium",
@@ -616,6 +624,7 @@
         "1664424434f5b7d0e0-1",
         "1664424434f5b7d0e0-2"
       ],
+      "disabled": true,
       "settings": {
         "full_width": true,
         "title": "",
@@ -809,6 +818,7 @@
         "166442457738b23caf-1",
         "166442457738b23caf-2"
       ],
+      "disabled": true,
       "settings": {
         "full_width": false,
         "subheading": "",
