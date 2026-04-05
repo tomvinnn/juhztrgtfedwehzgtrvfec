@@ -137,6 +137,7 @@
       "blocks": {
         "1664424046b00c932c-0": {
           "type": "item",
+          "disabled": true,
           "settings": {
             "image": "shopify://shop_images/pixelcut-export_41_4c562a1f-0b31-45e1-9b49-c9d32af7e1b8.webp",
             "stretch_image": true,
@@ -188,6 +189,7 @@
         },
         "e4a0ef18-1856-4ddd-83d8-871a60d7acac": {
           "type": "item",
+          "disabled": true,
           "settings": {
             "stretch_image": true,
             "link_text": "",
