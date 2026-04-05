@@ -1,0 +1,762 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Smart Watch 2.0 – IA High Tec Shop</title>
+<link href="https://fonts.googleapis.com/css2?family=Sofia+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --black: #0a0a0a;
+    --red: #e53e3e;
+    --gray-100: #f5f5f5;
+    --gray-200: #e8e8e8;
+    --gray-400: #aaa;
+    --gray-500: #888;
+    --radius: 14px;
+    --font: 'Sofia Sans', sans-serif;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: var(--font);
+    background: #fff;
+    color: var(--black);
+    width: 100%;
+    overflow-x: hidden;
+    padding-bottom: 60px;
+  }
+
+  /* ── LIVE TOP TICKER ── */
+  .live-ticker {
+    background: #0a0a0a;
+    color: #fff;
+    overflow: hidden;
+    white-space: nowrap;
+    position: sticky;
+    top: 0;
+    z-index: 200;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+  }
+  .live-ticker-inner {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    padding: 0;
+  }
+  /* Left badge: TikTok live */
+  .live-ticker-badge {
+    flex-shrink: 0;
+    background: var(--red);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 9px 12px 9px 10px;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    z-index: 1;
+  }
+  .live-ticker-badge-dot {
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    background: white;
+    animation: blink 1s infinite;
+    flex-shrink: 0;
+  }
+  /* TikTok logo SVG inline */
+  .tiktok-icon {
+    width: 14px; height: 14px;
+    flex-shrink: 0;
+    fill: white;
+  }
+  /* Scrolling track */
+  .live-ticker-track-wrap {
+    flex: 1;
+    overflow: hidden;
+    mask-image: linear-gradient(to right, transparent 0%, black 5%, black 95%, transparent 100%);
+    -webkit-mask-image: linear-gradient(to right, transparent 0%, black 5%, black 95%, transparent 100%);
+  }
+  .live-ticker-track {
+    display: inline-flex;
+    gap: 0;
+    animation: ticker-scroll 22s linear infinite;
+    white-space: nowrap;
+  }
+  .live-ticker-track:hover { animation-play-state: paused; }
+  .live-ticker-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 9px 18px;
+    font-size: 11px;
+    font-weight: 600;
+    color: rgba(255,255,255,0.9);
+    border-right: 1px solid rgba(255,255,255,0.1);
+    white-space: nowrap;
+  }
+  .live-ticker-item .t-emoji { font-size: 13px; }
+  @keyframes ticker-scroll {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+  @keyframes blink { 0%,100%{opacity:1;} 50%{opacity:0;} }
+
+  /* ── HEADER ── */
+  .header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--gray-200);
+    background: white;
+    position: sticky;
+    top: 38px;
+    z-index: 100;
+  }
+  .header-logo {
+    font-weight: 800;
+    font-size: 16px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  .header-icons { display: flex; gap: 16px; margin-left: auto; }
+  .header-icons svg { width: 22px; height: 22px; }
+
+  /* ── LIVE BANNER (under header, black) ── */
+  .live-banner {
+    background: #0a0a0a;
+    color: #fff;
+    padding: 13px 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border-bottom: 2px solid var(--red);
+  }
+  .live-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--red); flex-shrink: 0; animation: blink 1s infinite; box-shadow: 0 0 6px var(--red); }
+  .live-banner-text { flex: 1; }
+  .live-banner-top { font-size: 9px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--red); margin-bottom: 3px; display: flex; align-items: center; gap: 5px; }
+  .live-banner-main { font-size: 17px; font-weight: 800; line-height: 1.2; color: white; }
+  .live-banner-sub { font-size: 10px; font-weight: 500; color: rgba(255,255,255,0.5); margin-top: 2px; }
+  .live-badge { background: var(--red); color: white; font-size: 15px; font-weight: 800; border-radius: 10px; padding: 7px 14px; white-space: nowrap; flex-shrink: 0; box-shadow: 0 2px 12px rgba(229,62,62,0.5); }
+
+  /* ── GALLERY SWIPE ── */
+  .gallery-wrap {
+    width: 100%;
+    position: relative;
+    background: var(--gray-100);
+  }
+  .gallery-track {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+  .gallery-track::-webkit-scrollbar { display: none; }
+  .gallery-slide {
+    flex: 0 0 100%;
+    scroll-snap-align: start;
+    aspect-ratio: 1/1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--gray-100);
+  }
+  .gallery-slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    padding: 24px;
+  }
+  .gallery-dots {
+    display: flex;
+    justify-content: center;
+    gap: 6px;
+    padding: 10px 0 6px;
+    background: white;
+  }
+  .gallery-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--gray-200);
+    transition: background 0.2s, transform 0.2s;
+    cursor: pointer;
+  }
+  .gallery-dot.active { background: var(--black); transform: scale(1.3); }
+
+  .thumbs {
+    display: flex;
+    gap: 8px;
+    padding: 8px 16px 12px;
+    overflow-x: auto;
+    scrollbar-width: none;
+    background: white;
+  }
+  .thumbs::-webkit-scrollbar { display: none; }
+  .thumb {
+    width: 64px; height: 64px;
+    border-radius: 10px;
+    overflow: hidden;
+    flex-shrink: 0;
+    border: 2px solid transparent;
+    cursor: pointer;
+    background: var(--gray-100);
+    transition: border-color 0.15s;
+  }
+  .thumb.active { border-color: var(--black); }
+  .thumb img { width: 100%; height: 100%; object-fit: contain; padding: 5px; }
+
+  /* ── CONTENT ── */
+  .content { padding: 16px 16px 0; }
+  .brand { font-size: 11px; color: var(--gray-500); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 5px; font-weight: 500; }
+  .title { font-size: 24px; font-weight: 800; line-height: 1.2; margin-bottom: 6px; }
+  .title em { font-style: italic; font-weight: 300; font-size: 17px; display: block; margin-top: 2px; color: var(--gray-500); }
+  .stars-row { display: flex; align-items: center; gap: 8px; margin-bottom: 14px; }
+  .stars { color: #f4a100; font-size: 14px; }
+  .stars-count { font-size: 13px; font-weight: 600; color: var(--gray-500); }
+  .stars-count a { color: var(--gray-500); text-decoration: underline; }
+
+  /* ── COLOR BUTTONS ── */
+  .color-label { font-size: 13px; color: var(--gray-500); margin-bottom: 10px; font-weight: 500; }
+  .color-label strong { color: var(--black); font-weight: 700; }
+  .color-options { display: flex; gap: 10px; margin-bottom: 18px; flex-wrap: wrap; }
+
+  .color-btn {
+    width: 44px; height: 44px;
+    border-radius: 50%;
+    border: 3px solid transparent;
+    cursor: pointer;
+    position: relative;
+    transition: border-color 0.2s, transform 0.15s;
+    flex-shrink: 0;
+  }
+  .color-btn:hover { transform: scale(1.08); }
+  .color-btn.active {
+    border-color: var(--black);
+    box-shadow: 0 0 0 2px white inset;
+  }
+  .color-btn[data-color="gris"] { background: #b0aead; }
+  .color-btn[data-color="noir"] { background: #1a1a1a; }
+  .color-btn[data-color="orange"] { background: #e87722; }
+  .color-btn.active::after {
+    content: '✓';
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 16px;
+    font-weight: 700;
+    color: white;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.4);
+  }
+  .color-btn[data-color="gris"].active::after { color: #333; }
+
+  /* ── QTY ── */
+  .qty-row { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; }
+  .qty-label { font-size: 13px; color: var(--gray-500); }
+  .qty-ctrl { display: flex; align-items: center; border: 1.5px solid var(--gray-200); border-radius: 10px; overflow: hidden; }
+  .qty-btn { width: 38px; height: 38px; background: none; border: none; font-size: 18px; font-weight: 700; cursor: pointer; font-family: var(--font); display: flex; align-items: center; justify-content: center; }
+  .qty-val { width: 36px; text-align: center; font-size: 15px; font-weight: 700; font-family: var(--font); }
+
+  /* ── OFFER CARD ── */
+  .offer-card {
+    background: #0a0a0a;
+    border-radius: var(--radius);
+    padding: 16px 14px;
+    margin-bottom: 14px;
+    position: relative;
+    overflow: hidden;
+  }
+  .offer-card::before {
+    content: '';
+    position: absolute;
+    top: -30px; right: -30px;
+    width: 140px; height: 140px;
+    border-radius: 50%;
+    background: rgba(229,62,62,0.15);
+  }
+  .offer-card-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
+  .offer-card-label { font-size: 10px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--red); display: flex; align-items: center; gap: 5px; }
+  .offer-card-label::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--red); animation: blink 1s infinite; }
+  .offer-card-badge { background: var(--red); color: white; font-size: 14px; font-weight: 800; border-radius: 8px; padding: 5px 12px; }
+  .offer-prices { display: flex; align-items: flex-end; gap: 10px; margin-bottom: 8px; }
+  .offer-price-now { font-size: 36px; font-weight: 800; color: white; line-height: 1; }
+  .offer-price-old { font-size: 15px; color: rgba(255,255,255,0.45); text-decoration: line-through; padding-bottom: 3px; }
+  .offer-saving { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.15); border-radius: 8px; padding: 7px 10px; margin-bottom: 10px; }
+  .offer-saving-main { font-size: 13px; font-weight: 800; color: white; margin-bottom: 2px; }
+  .offer-saving-sub { font-size: 10px; color: rgba(255,255,255,0.55); }
+  /* TIMER COMPACT */
+  .offer-timer-row { display: flex; align-items: center; gap: 8px; }
+  .offer-timer-label { font-size: 10px; color: rgba(255,255,255,0.55); flex-shrink: 0; }
+  .offer-timer-blocks { display: flex; align-items: center; gap: 4px; }
+  .offer-timer-unit { background: rgba(255,255,255,0.1); border-radius: 6px; width: 38px; padding: 5px 3px 4px; text-align: center; }
+  .offer-timer-num { font-size: 18px; font-weight: 800; color: white; line-height: 1; display: block; }
+  .offer-timer-sub { display: block; font-size: 7px; font-weight: 500; color: rgba(255,255,255,0.45); letter-spacing: 0.08em; margin-top: 1px; text-transform: uppercase; }
+  .offer-timer-sep { font-size: 15px; font-weight: 700; color: rgba(255,255,255,0.4); margin-bottom: 2px; }
+  .offer-perks { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 10px; }
+  .offer-perk { background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.12); border-radius: 6px; padding: 4px 8px; font-size: 10px; font-weight: 600; color: rgba(255,255,255,0.75); white-space: nowrap; }
+
+  .sep { height: 1px; background: var(--gray-200); margin: 14px 0; }
+
+  /* ── BENEFITS ── */
+  .benefits { list-style: none; display: flex; flex-direction: column; gap: 10px; margin-bottom: 14px; }
+  .benefits li { display: flex; align-items: center; gap: 10px; font-size: 14px; font-weight: 500; }
+  .check-icon { width: 20px; height: 20px; border-radius: 50%; background: var(--black); flex-shrink: 0; display: flex; align-items: center; justify-content: center; }
+  .check-icon svg { width: 11px; height: 11px; }
+
+  /* ── STOCK ── */
+  .stock-line { display: flex; align-items: center; gap: 7px; font-size: 13px; font-weight: 600; color: var(--red); margin-bottom: 14px; }
+  .stock-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--red); flex-shrink: 0; animation: blink 1s infinite; }
+
+  /* ── CTA ── */
+  .cta-btn { display: block; width: 100%; background: var(--black); color: white; border: none; border-radius: var(--radius); padding: 17px; font-family: var(--font); font-size: 15px; font-weight: 700; letter-spacing: 0.04em; cursor: pointer; text-align: center; text-decoration: none; margin-bottom: 10px; text-transform: uppercase; }
+  .secure-note { display: flex; align-items: center; justify-content: center; gap: 5px; font-size: 11px; color: var(--gray-400); margin-bottom: 12px; }
+  .secure-note svg { width: 12px; height: 12px; }
+
+  /* ── PAYMENT IMAGE ── */
+  .payment-image-wrap { display: flex; justify-content: center; margin-bottom: 20px; }
+  .payment-image-wrap img { height: 32px; width: auto; object-fit: contain; }
+
+  /* ── TRUST ROW ── */
+  .trust-row { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; border-top: 1px solid var(--gray-200); border-bottom: 1px solid var(--gray-200); margin-bottom: 28px; }
+  .trust-item { padding: 14px 6px; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 4px; border-right: 1px solid var(--gray-200); }
+  .trust-item:last-child { border-right: none; }
+  .trust-icon-sm { font-size: 20px; }
+  .trust-text { font-size: 9px; font-weight: 700; line-height: 1.3; }
+
+  /* ── FEATURES ── */
+  .features { padding: 0 16px; margin-bottom: 28px; }
+  .feature-block { margin-bottom: 24px; }
+  .feature-img { width: 100%; border-radius: var(--radius); overflow: hidden; background: var(--gray-100); aspect-ratio: 4/3; display: flex; align-items: center; justify-content: center; margin-bottom: 12px; }
+  .feature-img img { width: 100%; height: 100%; object-fit: contain; padding: 20px; }
+  .feature-tag { font-size: 10px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gray-500); margin-bottom: 5px; }
+  .feature-title { font-size: 18px; font-weight: 800; line-height: 1.25; margin-bottom: 7px; }
+  .feature-desc { font-size: 13px; color: var(--gray-500); line-height: 1.6; }
+
+  /* ── STATS ── */
+  .stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; padding: 0 16px; margin-bottom: 28px; }
+  .stat-card { background: var(--gray-100); border-radius: var(--radius); padding: 18px 12px; text-align: center; }
+  .stat-num { font-size: 30px; font-weight: 800; line-height: 1; margin-bottom: 4px; }
+  .stat-label { font-size: 11px; color: var(--gray-500); }
+
+  /* ── REVIEWS ── */
+  .section-label { font-size: 10px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gray-500); margin-bottom: 5px; padding: 0 16px; }
+  .section-title { font-size: 20px; font-weight: 800; line-height: 1.2; margin-bottom: 16px; padding: 0 16px; }
+  .section-title em { font-style: italic; font-weight: 300; }
+  .reviews-scroll { display: flex; gap: 10px; overflow-x: auto; padding: 0 16px 12px; scrollbar-width: none; margin-bottom: 6px; }
+  .reviews-scroll::-webkit-scrollbar { display: none; }
+  .review-card { flex-shrink: 0; width: 210px; background: var(--gray-100); border-radius: var(--radius); padding: 13px; }
+  .review-stars { color: #f4a100; font-size: 12px; margin-bottom: 7px; }
+  .review-text { font-size: 12px; font-weight: 600; color: var(--black); line-height: 1.5; margin-bottom: 10px; text-transform: uppercase; letter-spacing: 0.02em; }
+  .review-author { display: flex; align-items: center; gap: 7px; }
+  .review-avatar { width: 28px; height: 28px; border-radius: 50%; font-size: 11px; font-weight: 700; background: var(--gray-200); flex-shrink: 0; display: flex; align-items: center; justify-content: center; }
+  .review-name { font-size: 11px; font-weight: 600; }
+  .review-date { font-size: 10px; color: var(--gray-500); }
+
+  /* ── LIFESTYLE ── */
+  .lifestyle-strip { display: flex; overflow-x: auto; gap: 10px; padding: 0 16px 14px; scrollbar-width: none; margin-bottom: 22px; }
+  .lifestyle-strip::-webkit-scrollbar { display: none; }
+  .lifestyle-img { width: 160px; height: 160px; flex-shrink: 0; border-radius: var(--radius); object-fit: contain; background: var(--gray-100); padding: 12px; }
+
+  /* ── FAQ ── */
+  .faq-section-head { padding: 0 16px; margin-bottom: 10px; }
+  .faq-wrap { padding: 0 16px; margin-bottom: 32px; }
+  .faq-item { border-bottom: 1px solid var(--gray-200); }
+  .faq-q { width: 100%; background: none; border: none; text-align: left; padding: 15px 0; font-family: var(--font); font-size: 14px; font-weight: 700; color: var(--black); cursor: pointer; display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+  .faq-icon { font-size: 18px; color: var(--gray-400); flex-shrink: 0; transition: transform 0.2s; }
+  .faq-item.open .faq-icon { transform: rotate(45deg); }
+  .faq-a { display: none; font-size: 13px; color: var(--gray-500); line-height: 1.65; padding-bottom: 15px; }
+  .faq-item.open .faq-a { display: block; }
+
+  /* ── TRUSTPILOT ── */
+  .tp-wrap { padding: 0 16px; margin-bottom: 32px; }
+  .tp-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 5px; }
+  .tp-logo { font-size: 13px; font-weight: 800; color: #00b67a; }
+  .tp-score { font-size: 13px; font-weight: 700; }
+  .tp-score span { color: var(--gray-500); font-weight: 400; }
+  .tp-global-stars { color: #00b67a; font-size: 16px; margin-bottom: 16px; }
+  .tp-card { background: var(--gray-100); border-radius: var(--radius); padding: 13px; margin-bottom: 10px; }
+  .tp-card-stars { color: #00b67a; font-size: 12px; margin-bottom: 5px; }
+  .tp-card-date { font-size: 10px; color: var(--gray-500); margin-bottom: 5px; }
+  .tp-card-text { font-size: 13px; font-weight: 500; line-height: 1.55; margin-bottom: 7px; }
+  .tp-card-name { font-size: 11px; font-weight: 700; color: var(--gray-500); }
+  .tp-verified { font-size: 10px; color: var(--gray-400); margin-top: 16px; text-align: center; }
+
+  /* ── FOOTER ── */
+  .footer { background: var(--black); color: white; padding: 22px 16px; text-align: center; }
+  .footer-logo { font-size: 13px; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 12px; }
+  .footer-links { display: flex; justify-content: center; gap: 14px; flex-wrap: wrap; margin-bottom: 12px; }
+  .footer-links a { font-size: 11px; color: rgba(255,255,255,0.6); text-decoration: none; }
+  .footer-badges { display: flex; justify-content: center; gap: 12px; font-size: 11px; color: rgba(255,255,255,0.5); flex-wrap: wrap; margin-bottom: 10px; }
+  .footer-copy { font-size: 10px; color: rgba(255,255,255,0.35); }
+</style>
+</head>
+<body>
+
+<!-- LIVE TOP TICKER (tout en haut, fond noir) -->
+<div class="live-ticker">
+  <div class="live-ticker-inner">
+    <!-- Badge TikTok Live -->
+    <div class="live-ticker-badge">
+      <div class="live-ticker-badge-dot"></div>
+      <svg class="tiktok-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.34 6.34 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.69a8.18 8.18 0 004.79 1.53V6.77a4.85 4.85 0 01-1.02-.08z"/></svg>
+      LIVE
+    </div>
+    <!-- Piste défilante -->
+    <div class="live-ticker-track-wrap">
+      <div class="live-ticker-track" id="tickerTrack">
+        <!-- Les items sont dupliqués pour boucle infinie -->
+        <span class="live-ticker-item"><span class="t-emoji">🔥</span> Offre Flash −50% ce soir uniquement</span>
+        <span class="live-ticker-item"><span class="t-emoji">📦</span> Stock limité : 12 montres restantes</span>
+        <span class="live-ticker-item"><span class="t-emoji">🚚</span> Expédition en 24h</span>
+        <span class="live-ticker-item"><span class="t-emoji">🎁</span> Livraison gratuite</span>
+        <span class="live-ticker-item"><span class="t-emoji">↩️</span> Retour gratuit 60 jours</span>
+        <span class="live-ticker-item"><span class="t-emoji">🛡️</span> Garantie 12 mois</span>
+        <span class="live-ticker-item"><span class="t-emoji">💳</span> Paiement 100% sécurisé</span>
+        <span class="live-ticker-item"><span class="t-emoji">⌚</span> + 3 bracelets offerts</span>
+        <!-- Doublon pour loop fluide -->
+        <span class="live-ticker-item"><span class="t-emoji">🔥</span> Offre Flash −50% ce soir uniquement</span>
+        <span class="live-ticker-item"><span class="t-emoji">📦</span> Stock limité : 12 montres restantes</span>
+        <span class="live-ticker-item"><span class="t-emoji">🚚</span> Expédition en 24h</span>
+        <span class="live-ticker-item"><span class="t-emoji">🎁</span> Livraison gratuite</span>
+        <span class="live-ticker-item"><span class="t-emoji">↩️</span> Retour gratuit 60 jours</span>
+        <span class="live-ticker-item"><span class="t-emoji">🛡️</span> Garantie 12 mois</span>
+        <span class="live-ticker-item"><span class="t-emoji">💳</span> Paiement 100% sécurisé</span>
+        <span class="live-ticker-item"><span class="t-emoji">⌚</span> + 3 bracelets offerts</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- HEADER -->
+<div class="header">
+  <div style="width:44px;flex-shrink:0;"></div>
+  <div class="header-logo">IA High Tec Shop</div>
+  <div class="header-icons">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+  </div>
+</div>
+
+<!-- LIVE BANNER (fond noir, mise en avant) -->
+<div class="live-banner">
+  <div class="live-dot"></div>
+  <div class="live-banner-text">
+    <div class="live-banner-top">
+      <svg style="width:11px;height:11px;fill:var(--red);flex-shrink:0;" viewBox="0 0 24 24"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.34 6.34 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.69a8.18 8.18 0 004.79 1.53V6.77a4.85 4.85 0 01-1.02-.08z"/></svg>
+      TikTok Live en cours
+    </div>
+    <div class="live-banner-main">Offre Flash Spéciale Live</div>
+    <div class="live-banner-sub">Disponible ce soir uniquement</div>
+  </div>
+  <div class="live-badge">−50%</div>
+</div>
+
+<!-- GALLERY SWIPE -->
+<div class="gallery-wrap">
+  <div class="gallery-track" id="galleryTrack"></div>
+  <div class="gallery-dots" id="galleryDots"></div>
+  <div class="thumbs" id="thumbs"></div>
+</div>
+
+<!-- CONTENT -->
+<div class="content">
+  <p class="brand">IA High Tec Shop</p>
+  <h1 class="title">Smart Watch 2.0<em>Compact, élégante, et intelligente</em></h1>
+  <div class="stars-row">
+    <span class="stars">★★★★★</span>
+    <span class="stars-count"><a href="#avis-clients">312 avis</a></span>
+  </div>
+
+  <!-- ★ COULEURS + QUANTITÉ juste sous les avis ★ -->
+  <div class="sep" style="margin-top:2px;margin-bottom:12px;"></div>
+  <p class="color-label">Couleur : <strong id="color-name-top">Gris</strong></p>
+  <div class="color-options">
+    <button class="color-btn active" data-color="gris" onclick="selectColor('gris','Gris',this)" title="Gris"></button>
+    <button class="color-btn" data-color="noir" onclick="selectColor('noir','Noir',this)" title="Noir"></button>
+    <button class="color-btn" data-color="orange" onclick="selectColor('orange','Orange',this)" title="Orange"></button>
+  </div>
+  <div class="qty-row">
+    <span class="qty-label">Quantité</span>
+    <div class="qty-ctrl">
+      <button class="qty-btn" onclick="changeQty(-1)">−</button>
+      <span class="qty-val" id="qty">1</span>
+      <button class="qty-btn" onclick="changeQty(1)">+</button>
+    </div>
+  </div>
+  <div class="sep" style="margin-top:2px;"></div>
+
+  <!-- OFFER CARD -->
+  <div class="offer-card">
+    <div class="offer-card-top">
+      <div class="offer-card-label">Offre Flash Live</div>
+      <div class="offer-card-badge">−50%</div>
+    </div>
+    <div class="offer-prices">
+      <span class="offer-price-now">64,90 €</span>
+      <span class="offer-price-old">129,90 €</span>
+    </div>
+    <div class="offer-saving">
+      <div class="offer-saving-main">💰 Tu économises 65,00 € ce soir</div>
+      <div class="offer-saving-sub">Prix normal : 129,90 € — Offre Live uniquement, non renouvelable</div>
+    </div>
+    <div class="offer-timer-row">
+      <span class="offer-timer-label">Expire dans</span>
+      <div class="offer-timer-blocks">
+        <div class="offer-timer-unit"><span class="offer-timer-num" id="t-h">01</span><span class="offer-timer-sub">h</span></div>
+        <div class="offer-timer-sep">:</div>
+        <div class="offer-timer-unit"><span class="offer-timer-num" id="t-min">30</span><span class="offer-timer-sub">min</span></div>
+        <div class="offer-timer-sep">:</div>
+        <div class="offer-timer-unit"><span class="offer-timer-num" id="t-sec">00</span><span class="offer-timer-sub">sec</span></div>
+      </div>
+    </div>
+    <div class="offer-perks">
+      <span class="offer-perk">🚚 Livraison offerte</span>
+      <span class="offer-perk">↩️ 60j remboursé</span>
+      <span class="offer-perk">+ 3 bracelets</span>
+    </div>
+  </div>
+
+  <div class="sep"></div>
+
+  <!-- BENEFITS -->
+  <ul class="benefits">
+    <li><div class="check-icon"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>Compact et élégant — design ultra-fin</li>
+    <li><div class="check-icon"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>Traque ta santé en temps réel (cœur, SpO2, sommeil)</li>
+    <li><div class="check-icon"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>Durable et robuste — résistante à l'eau IP67</li>
+    <li><div class="check-icon"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>Compatible iPhone &amp; Android</li>
+    <li><div class="check-icon"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>Appels &amp; SMS directement depuis le poignet</li>
+  </ul>
+
+  <div class="stock-line"><div class="stock-dot"></div>Stock restant : 12 Smart Watch uniquement</div>
+  <div class="sep"></div>
+
+  <!-- CTA -->
+  <a href="#" class="cta-btn">🔒 Commander Ma Smart Watch 2.0</a>
+  <div class="secure-note">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+    Paiement 100% sécurisé · SSL
+  </div>
+  <!-- ★ IMAGE LOGOS PAIEMENT ★ -->
+  <div class="payment-image-wrap">
+    <img src="data:image/png;base64,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" alt="Mastercard Visa Apple Pay Google Pay">
+  </div>
+</div>
+
+<!-- TRUST ROW -->
+<div class="trust-row">
+  <div class="trust-item"><div class="trust-icon-sm">🛡️</div><div class="trust-text">Garantie<br>12 mois</div></div>
+  <div class="trust-item"><div class="trust-icon-sm">↩️</div><div class="trust-text">Retour<br>60 jours</div></div>
+  <div class="trust-item"><div class="trust-icon-sm">🚚</div><div class="trust-text">Livraison<br>gratuite</div></div>
+  <div class="trust-item"><div class="trust-icon-sm">💬</div><div class="trust-text">Support<br>24h/24</div></div>
+</div>
+
+<!-- FEATURES -->
+<div class="features">
+  <div class="feature-block">
+    <div class="feature-img"><img src="https://cdn.shopify.com/s/files/1/0850/9571/0986/files/pixelcut-export_44_8d6b7a85-4d5f-495b-b87b-6e4a75563bb6.webp?v=1732348960" alt="Suivi santé"></div>
+    <p class="feature-tag">Suivi santé complet</p>
+    <h3 class="feature-title">Ton corps. Sous surveillance constante.</h3>
+    <p class="feature-desc">Fréquence cardiaque, saturation en oxygène (SpO2), qualité du sommeil, calories, pas — tout est mesuré en continu. La Smart Watch 2.0 t'alerte avant même que tu ne ressentes quelque chose.</p>
+  </div>
+  <div class="feature-block">
+    <div class="feature-img"><img src="https://cdn.shopify.com/s/files/1/0850/9571/0986/files/WhatsApp_Image_2026-04-03_at_22.37.43_2.jpg?v=1775248713" alt="Appels SMS"></div>
+    <p class="feature-tag">Connectivité totale</p>
+    <h3 class="feature-title">Appels, SMS, notifs. Sans toucher ton téléphone.</h3>
+    <p class="feature-desc">Réponds à tes appels et messages directement depuis ton poignet. Compatible iPhone et Android, elle te garde connecté partout, en toute discrétion.</p>
+  </div>
+  <div class="feature-block">
+    <div class="feature-img"><img src="https://cdn.shopify.com/s/files/1/0850/9571/0986/files/WhatsApp_Image_2026-04-03_at_22.37.43.jpg?v=1775248715" alt="Design robuste"></div>
+    <p class="feature-tag">Construction premium</p>
+    <h3 class="feature-title">Robuste. Résistante. Faite pour durer.</h3>
+    <p class="feature-desc">Résistance à l'eau IP67, verre minéral traité anti-rayures, boîtier en alliage aluminium. La Smart Watch 2.0 encaisse autant que toi.</p>
+  </div>
+</div>
+
+<!-- STATS -->
+<div class="stats-grid">
+  <div class="stat-card"><div class="stat-num">+8 000</div><div class="stat-label">clients satisfaits</div></div>
+  <div class="stat-card"><div class="stat-num">60j</div><div class="stat-label">satisfait ou remboursé</div></div>
+  <div class="stat-card"><div class="stat-num">IP67</div><div class="stat-label">résistance à l'eau</div></div>
+  <div class="stat-card"><div class="stat-num">98%</div><div class="stat-label">clients satisfaits</div></div>
+</div>
+
+<!-- REVIEWS -->
+<div class="section-label">Ils en parlent mieux que nous…</div>
+<div class="section-title">Vos avis parlent <em>d'eux-mêmes.</em></div>
+<div class="reviews-scroll">
+  <div class="review-card"><div class="review-stars">★★★★★</div><div class="review-text">La qualité est au rendez-vous. Je m'attendais pas à ça pour ce prix.</div><div class="review-author"><div class="review-avatar">TM</div><div><div class="review-name">Thomas M.</div><div class="review-date">Il y a 2 jours</div></div></div></div>
+  <div class="review-card"><div class="review-stars">★★★★★</div><div class="review-text">Reçu en 3 jours, livraison soignée. La montre est vraiment belle en vrai.</div><div class="review-author"><div class="review-avatar">SL</div><div><div class="review-name">Sophie L.</div><div class="review-date">Il y a 4 jours</div></div></div></div>
+  <div class="review-card"><div class="review-stars">★★★★★</div><div class="review-text">Le suivi du sommeil est bluffant. Je la porte même la nuit tellement elle est légère.</div><div class="review-author"><div class="review-avatar">KR</div><div><div class="review-name">Kevin R.</div><div class="review-date">Il y a 1 semaine</div></div></div></div>
+  <div class="review-card"><div class="review-stars">★★★★★</div><div class="review-text">J'ai acheté pour mon mari, il l'a plus quittée depuis. Cadeau parfait.</div><div class="review-author"><div class="review-avatar">MD</div><div><div class="review-name">Marie D.</div><div class="review-date">Il y a 10 jours</div></div></div></div>
+  <div class="review-card"><div class="review-stars">★★★★★</div><div class="review-text">Appels et SMS directement depuis la montre, ça change la vie au sport.</div><div class="review-author"><div class="review-avatar">JB</div><div><div class="review-name">Julien B.</div><div class="review-date">Il y a 2 semaines</div></div></div></div>
+</div>
+
+<!-- LIFESTYLE -->
+<div class="lifestyle-strip">
+  <img class="lifestyle-img" src="https://cdn.shopify.com/s/files/1/0850/9571/0986/files/pixelcut-export_44_8d6b7a85-4d5f-495b-b87b-6e4a75563bb6.webp?v=1732348960" alt="">
+  <img class="lifestyle-img" src="https://cdn.shopify.com/s/files/1/0850/9571/0986/files/WhatsApp_Image_2026-04-03_at_22.37.43_2.jpg?v=1775248713" alt="">
+  <img class="lifestyle-img" src="https://cdn.shopify.com/s/files/1/0850/9571/0986/files/WhatsApp_Image_2026-04-03_at_22.37.43.jpg?v=1775248715" alt="">
+</div>
+
+<!-- 2e CTA -->
+<div style="padding:0 16px;margin-bottom:32px;">
+  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;">
+    <div>
+      <div style="font-size:28px;font-weight:800;">64,90 €</div>
+      <div style="font-size:13px;color:var(--gray-400);text-decoration:line-through;">129,90 €</div>
+    </div>
+    <div style="text-align:right;">
+      <div style="font-size:11px;color:var(--gray-500);margin-bottom:4px;">★★★★★ 312 avis</div>
+      <div style="font-size:11px;color:var(--red);font-weight:700;">Stock : 12 restantes</div>
+    </div>
+  </div>
+  <a href="#" class="cta-btn">🔒 Commander Ma Smart Watch 2.0</a>
+  <div class="secure-note">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+    Paiement 100% sécurisé · Livraison offerte
+  </div>
+</div>
+
+<!-- FAQ -->
+<div class="faq-section-head">
+  <p class="feature-tag" style="margin-bottom:5px;">Questions fréquentes</p>
+  <h2 style="font-size:20px;font-weight:800;line-height:1.2;">Tout ce que vous devez savoir <em style="font-weight:300;font-style:italic;">avant de commander</em></h2>
+</div>
+<div class="faq-wrap" id="avis-clients">
+  <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)">La Smart Watch 2.0 est-elle compatible avec mon téléphone ?<span class="faq-icon">+</span></button><div class="faq-a">Oui. Compatible avec tous les iPhone (iOS 9+) et smartphones Android (5.0+). Connexion Bluetooth stable, synchronisation en quelques secondes via l'application gratuite.</div></div>
+  <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)">Est-ce que je peux vraiment passer des appels depuis la montre ?<span class="faq-icon">+</span></button><div class="faq-a">Absolument. Microphone et haut-parleur intégrés. Quand ton téléphone est à portée Bluetooth, tu peux décrocher, parler et raccrocher directement depuis ton poignet.</div></div>
+  <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)">Quelle est l'autonomie de la batterie ?<span class="faq-icon">+</span></button><div class="faq-a">Entre 5 et 7 jours en utilisation normale. Avec le suivi santé actif en continu, comptez 3 à 4 jours. Recharge complète en moins de 2 heures via le chargeur magnétique inclus.</div></div>
+  <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)">Elle résiste à l'eau ? Je peux la porter sous la douche ?<span class="faq-icon">+</span></button><div class="faq-a">Oui, certifiée IP67 — supporte une immersion jusqu'à 1 mètre pendant 30 minutes. Sous la douche et par temps de pluie, aucun problème. On déconseille en revanche la piscine ou la mer.</div></div>
+  <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)">Quelle est la politique de retour ?<span class="faq-icon">+</span></button><div class="faq-a">60 jours pour la retourner sans aucune justification. Remboursement 100% intégral frais de livraison inclus. En cas de produit défectueux à réception : remplacement immédiat sans retour préalable.</div></div>
+  <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)">Le prix −50% va-t-il remonter après le live ?<span class="faq-icon">+</span></button><div class="faq-a">Oui. Le prix de <strong>64,90 €</strong> (au lieu de 129,90 €) est exclusivement réservé aux spectateurs du live. Une fois le timer écoulé, la remise ne peut plus être appliquée rétroactivement.</div></div>
+</div>
+
+<!-- TRUSTPILOT -->
+<div class="tp-wrap">
+  <div class="tp-header"><div class="tp-logo">Trustpilot</div><div class="tp-score">4,8 <span>/ 5</span></div></div>
+  <div class="tp-global-stars">★★★★★</div>
+  <p style="font-size:11px;color:var(--gray-500);margin-bottom:18px;">Basé sur <a href="#" style="color:var(--gray-500);">312 avis vérifiés</a></p>
+  <div class="tp-card"><div class="tp-card-stars">★★★★★</div><div class="tp-card-date">Il y a 1 jour</div><div class="tp-card-text">Je n'espérais pas une telle qualité à ce prix. Dès que je l'ai sortie du colis j'ai été bluffé. L'écran est net, la montre est légère et les fonctions de santé fonctionnent vraiment.</div><div class="tp-card-name">Lucas M.</div></div>
+  <div class="tp-card"><div class="tp-card-stars">★★★★★</div><div class="tp-card-date">Il y a 2 jours</div><div class="tp-card-text">Offert à ma fille pour son anniversaire. Elle l'adore. La couleur orange est magnifique et la livraison a été ultra rapide. Je recommande sans hésiter.</div><div class="tp-card-name">Isabelle P.</div></div>
+  <div class="tp-card"><div class="tp-card-stars">★★★★★</div><div class="tp-card-date">Il y a 3 jours</div><div class="tp-card-text">Le suivi du sommeil est top. Et pouvoir répondre aux appels depuis mon poignet à la salle de sport, ça change vraiment la vie. Aucun regret.</div><div class="tp-card-name">Romain C.</div></div>
+  <div class="tp-card"><div class="tp-card-stars">★★★★★</div><div class="tp-card-date">Il y a 5 jours</div><div class="tp-card-text">Commandé un mercredi soir, reçu le vendredi matin. Emballage soigné, produit conforme aux photos. La montre est solide, le bracelet est confortable. Très satisfait.</div><div class="tp-card-name">Mathieu F.</div></div>
+  <div class="tp-card"><div class="tp-card-stars">★★★★★</div><div class="tp-card-date">Il y a 1 semaine</div><div class="tp-card-text">Ça fait un mois que je la porte tous les jours. Pas une seule fois elle a eu un bug.</div><div class="tp-card-name">Antoine L.</div></div>
+  <div class="tp-card"><div class="tp-card-stars">★★★★★</div><div class="tp-card-date">Il y a 2 semaines</div><div class="tp-card-text">J'ai remplacé une montre deux fois plus chère. La Smart Watch 2.0 fait exactement la même chose. SAV au top, ils ont répondu à mon message en 20 minutes.</div><div class="tp-card-name">Pierre-Antoine K.</div></div>
+  <p class="tp-verified">Avis collectés et vérifiés par Trustpilot</p>
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+  <div class="footer-logo">IA High Tec Shop</div>
+  <div class="footer-links">
+    <a href="#">Confidentialité</a><a href="#">Remboursement</a><a href="#">CGV</a><a href="#">Livraison</a><a href="#">Contact</a>
+  </div>
+  <div class="footer-badges">
+    <span>🔒 Paiement sécurisé</span><span>↩️ 60j remboursé</span><span>🇫🇷 Support FR</span>
+  </div>
+  <div class="footer-copy">© 2026 IA High Tec Shop — Tous droits réservés</div>
+</div>
+
+<script>
+  const galleryData = {
+    gris: [
+      { src: 'https://cdn.shopify.com/s/files/1/0850/9571/0986/files/pixelcut-export_44_8d6b7a85-4d5f-495b-b87b-6e4a75563bb6.webp?v=1732348960', alt: 'Smart Watch Gris' },
+      { src: 'https://cdn.shopify.com/s/files/1/0850/9571/0986/files/WhatsApp_Image_2026-04-03_at_22.37.43_1.jpg?v=1775248715', alt: 'Smart Watch Gris détail' }
+    ],
+    noir: [
+      { src: 'https://cdn.shopify.com/s/files/1/0850/9571/0986/files/O1CN017e2Cmp2Dtzw4Yz7qK__2207705038668-0-cib_0a846c84-0535-4e84-9d6a-76f57b54b198.webp?v=1732348989', alt: 'Smart Watch Noir' },
+      { src: 'https://cdn.shopify.com/s/files/1/0850/9571/0986/files/WhatsApp_Image_2026-04-03_at_22.37.43_2.jpg?v=1775248713', alt: 'Smart Watch Noir détail' }
+    ],
+    orange: [
+      { src: 'https://cdn.shopify.com/s/files/1/0850/9571/0986/files/O1CN017e2Cmp2Dtzw4Yz7qK__2207705038668-0-cib_0a846c84-0535-4e84-9d6a-76f57b54b198.webp?v=1732348989', alt: 'Smart Watch Orange' },
+      { src: 'https://cdn.shopify.com/s/files/1/0850/9571/0986/files/WhatsApp_Image_2026-04-03_at_22.37.43.jpg?v=1775248715', alt: 'Smart Watch Orange détail' }
+    ]
+  };
+
+  let currentColor = 'gris';
+  let currentSlide = 0;
+
+  function buildGallery(color) {
+    const imgs = galleryData[color];
+    const track = document.getElementById('galleryTrack');
+    const dots = document.getElementById('galleryDots');
+    const thumbs = document.getElementById('thumbs');
+    track.innerHTML = '';
+    imgs.forEach((img) => {
+      const slide = document.createElement('div');
+      slide.className = 'gallery-slide';
+      const im = document.createElement('img');
+      im.src = img.src; im.alt = img.alt;
+      slide.appendChild(im); track.appendChild(slide);
+    });
+    dots.innerHTML = '';
+    imgs.forEach((_, i) => {
+      const dot = document.createElement('div');
+      dot.className = 'gallery-dot' + (i === 0 ? ' active' : '');
+      dot.onclick = () => goToSlide(i);
+      dots.appendChild(dot);
+    });
+    thumbs.innerHTML = '';
+    imgs.forEach((img, i) => {
+      const div = document.createElement('div');
+      div.className = 'thumb' + (i === 0 ? ' active' : '');
+      div.onclick = () => goToSlide(i);
+      const im = document.createElement('img');
+      im.src = img.src; im.alt = img.alt;
+      div.appendChild(im); thumbs.appendChild(div);
+    });
+    currentSlide = 0;
+    track.onscroll = () => {
+      const idx = Math.round(track.scrollLeft / track.offsetWidth);
+      if (idx !== currentSlide) { currentSlide = idx; updateGalleryUI(); }
+    };
+  }
+
+  function goToSlide(idx) {
+    const track = document.getElementById('galleryTrack');
+    track.scrollTo({ left: idx * track.offsetWidth, behavior: 'smooth' });
+    currentSlide = idx; updateGalleryUI();
+  }
+
+  function updateGalleryUI() {
+    document.querySelectorAll('.gallery-dot').forEach((d, i) => d.classList.toggle('active', i === currentSlide));
+    document.querySelectorAll('.thumb').forEach((t, i) => t.classList.toggle('active', i === currentSlide));
+  }
+
+  function selectColor(color, label, btn) {
+    document.querySelectorAll('.color-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('color-name-top').textContent = label;
+    currentColor = color;
+    buildGallery(color);
+  }
+
+  buildGallery('gris');
+
+  // ── TIMER 1h30 ──
+  let total = 1 * 3600 + 30 * 60; // 1h30
+  function updateTimer() {
+    const h = Math.floor(total / 3600);
+    const m = Math.floor((total % 3600) / 60);
+    const s = total % 60;
+    document.getElementById('t-h').textContent = String(h).padStart(2,'0');
+    document.getElementById('t-min').textContent = String(m).padStart(2,'0');
+    document.getElementById('t-sec').textContent = String(s).padStart(2,'0');
+    if (total > 0) total--; else total = 1 * 3600 + 30 * 60;
+  }
+  updateTimer(); setInterval(updateTimer, 1000);
+
+  // ── QTY ──
+  let qty = 1;
+  function changeQty(d) { qty = Math.max(1, qty + d); document.getElementById('qty').textContent = qty; }
+
+  // ── FAQ ──
+  function toggleFaq(btn) { btn.parentElement.classList.toggle('open'); }
+</script>
+</body>
+</html>
