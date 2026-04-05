@@ -25,7 +25,6 @@
       "block_order": [
         "message"
       ],
-      "disabled": true,
       "settings": {
         "enable_sticky": false,
         "autoplay": false,
@@ -68,7 +67,6 @@
       "block_order": [
         "mega_menu_8DX8Tj"
       ],
-      "disabled": true,
       "settings": {
         "enable_sticky": true,
         "hide_on_scroll": false,
@@ -94,6 +92,7 @@
     },
     "custom_liquid_8wUhXV": {
       "type": "custom-liquid",
+      "disabled": true,
       "name": "Custom Liquid",
       "settings": {
         "full_width": true,
