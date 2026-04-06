@@ -218,6 +218,23 @@
         "background_gradient": "",
         "text_color": ""
       }
+    },
+    "177549690580716df8": {
+      "type": "_blocks",
+      "settings": {}
+    },
+    "custom_html_CKt7XD": {
+      "type": "custom-html",
+      "name": "Custom HTML",
+      "settings": {
+        "full_width": true,
+        "remove_vertical_spacing": false,
+        "remove_horizontal_spacing": false,
+        "html": "<p style=\"text-align: center\">Write or copy/paste HTML code</p>",
+        "background": "",
+        "background_gradient": "",
+        "text_color": ""
+      }
     }
   },
   "order": [
@@ -231,6 +248,8 @@
     "custom_liquid_B4q88E",
     "custom_liquid_mTcT7E",
     "custom_liquid_jP3UQN",
-    "custom_liquid_4kqbDJ"
+    "custom_liquid_4kqbDJ",
+    "177549690580716df8",
+    "custom_html_CKt7XD"
   ]
 }
