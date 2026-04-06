@@ -123,7 +123,6 @@
     },
     "custom_liquid_t4ReKn": {
       "type": "custom-liquid",
-      "disabled": true,
       "name": "Custom Liquid",
       "settings": {
         "full_width": true,
