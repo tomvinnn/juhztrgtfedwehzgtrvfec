@@ -108,7 +108,6 @@
     },
     "custom_liquid_Dfdcnm": {
       "type": "custom-liquid",
-      "disabled": true,
       "name": "Custom Liquid",
       "settings": {
         "full_width": true,
