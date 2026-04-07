@@ -33,6 +33,7 @@
         "cart_note",
         "checkout_button"
       ],
+      "disabled": true,
       "settings": {
         "show_shipping_estimator": true,
         "show_payment_icons": true
@@ -40,7 +41,6 @@
     },
     "custom_liquid_aC9FUU": {
       "type": "custom-liquid",
-      "disabled": true,
       "name": "Custom Liquid",
       "settings": {
         "full_width": true,
