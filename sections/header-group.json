@@ -69,6 +69,7 @@
       "block_order": [
         "mega_menu_8DX8Tj"
       ],
+      "disabled": true,
       "settings": {
         "enable_sticky": true,
         "hide_on_scroll": false,
